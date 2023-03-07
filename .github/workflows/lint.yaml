@@ -41,10 +41,10 @@ jobs:
       - uses: actions/checkout@v3
       - uses: hashicorp/setup-terraform@v2
 
-      # - name: init staging
-      #   run: cd env/staging && terraform init
-      # - name: init prod
-      #   run: cd env/prod && terraform init
+      - name: init staging
+        run: cd env/staging && terraform init -backend=false
+      - name: init prod
+        run: cd env/prod && terraform init -backend=false
 
       - id: validate-staging
         name: Validate staging
