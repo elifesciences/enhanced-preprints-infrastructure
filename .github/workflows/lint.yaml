@@ -21,13 +21,12 @@ jobs:
         name: Setup TFLint
         with:
           tflint_version: latest
-      - uses: hashicorp/setup-terraform@v2
 
       - name: Init TFLint
         run: tflint --init
         env:
           GITHUB_TOKEN: ${{ github.token }}
-      - run: terraform init
+
 
       - id: tflint-staging
         name: TFLint staging
@@ -35,6 +34,14 @@ jobs:
       - id: tflint-prod
         name: TFLint prod
         run: cd env/prod && tflint -f compact
+
+  validate:
+      - uses: hashicorp/setup-terraform@v2
+
+      - name: init staging
+        run: cd env/staging && terraform init
+      - name: init prod
+        run: cd env/prod && terraform init
 
       - id: validate-staging
         name: Validate staging
