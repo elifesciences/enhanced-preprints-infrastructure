@@ -1,0 +1,44 @@
+name: Lint
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+    tags:
+      - '*'
+jobs:
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        name: Cache TFLINT plugin dir
+        with:
+          path: ~/.tflint.d/plugins
+          key: tflint-${{ hashFiles('.tflint.hcl') }}
+      - uses: terraform-linters/setup-tflint@v3
+        name: Setup TFLint
+        with:
+          tflint_version: latest
+      - uses: hashicorp/setup-terraform@v2
+
+      - name: Init TFLint
+        run: tflint --init
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - run: terraform init
+
+      - id: tflint-staging
+        name: TFLint staging
+        run: cd env/staging && tflint -f compact
+      - id: tflint-prod
+        name: TFLint prod
+        run: cd env/prod && tflint -f compact
+
+      - id: validate-staging
+        name: Validate staging
+        run: cd env/staging && terraform validator
+      - id: validate-prod
+        name: Validate production
+        run: cd env/prod && terraform validator
