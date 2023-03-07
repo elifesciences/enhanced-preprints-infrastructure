@@ -36,6 +36,8 @@ jobs:
         run: cd env/prod && tflint -f compact
 
   validate:
+    runs-on: ubuntu-22.04
+    steps:
       - uses: hashicorp/setup-terraform@v2
 
       - name: init staging
