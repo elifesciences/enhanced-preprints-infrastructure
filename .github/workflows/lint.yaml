@@ -45,7 +45,7 @@ jobs:
 
       - id: validate-staging
         name: Validate staging
-        run: cd env/staging && terraform validator
+        run: cd env/staging && terraform validate
       - id: validate-prod
         name: Validate production
-        run: cd env/prod && terraform validator
+        run: cd env/prod && terraform validate
