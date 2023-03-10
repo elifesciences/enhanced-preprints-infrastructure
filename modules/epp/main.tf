@@ -12,11 +12,6 @@ resource "aws_s3_bucket" "main_bucket" {
   tags    = local.tags
 }
 
-moved {
-  from = aws_s3_bucket.b
-  to   = aws_s3_bucket.main_bucket
-}
-
 resource "aws_iam_policy" "read_write" {
   name        = "epp-${var.env}-s3-read-write"
   path        = "/"

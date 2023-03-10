@@ -7,8 +7,3 @@ module "epp" {
   irsa_namespace        = "epp--prod"
   irsa_service_account  = "default"
 }
-
-moved {
-  from = module.epp-storage
-  to   = module.epp
-}
