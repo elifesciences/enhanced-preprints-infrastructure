@@ -22,15 +22,10 @@ jobs:
         with:
           tflint_version: latest
 
-      - name: Init TFLint
-        run: tflint --init
+      - name: Run lint
+        run: make lint
         env:
           GITHUB_TOKEN: ${{ github.token }}
-
-
-      - id: tflint-staging
-        name: TFLint staging
-        run: tflint -f compact --recursive
 
   validate:
     runs-on: ubuntu-22.04
@@ -45,7 +40,7 @@ jobs:
 
       - id: validate-staging
         name: Validate staging
-        run: cd env/staging && terraform validate
+        run: make validate-staging
       - id: validate-prod
         name: Validate production
-        run: cd env/prod && terraform validate
+        run: make validate-prod
