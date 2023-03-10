@@ -14,3 +14,7 @@ variable "irsa_namespace" {
 variable "irsa_service_account" {
   type = string
 }
+
+variable "biorxiv_role_arn" {
+  type = string
+}

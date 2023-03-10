@@ -1,6 +1,6 @@
 locals {
   project_name = "epp"
-  bucket_name = "${var.env}-elife-epp-data"
+  bucket_name  = "${var.env}-elife-epp-data"
   tags = {
     Project     = local.project_name
     Environment = var.env
@@ -8,8 +8,8 @@ locals {
 }
 
 resource "aws_s3_bucket" "main_bucket" {
-  bucket  = local.bucket_name
-  tags    = local.tags
+  bucket = local.bucket_name
+  tags   = local.tags
 }
 
 resource "aws_iam_policy" "read_write" {
@@ -21,17 +21,17 @@ resource "aws_iam_policy" "read_write" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid: "List",
-        Effect: "Allow",
-        Action: [
+        Sid : "List",
+        Effect : "Allow",
+        Action : [
           "s3:ListBucket"
         ],
-        Resource: "arn:aws:s3:::${local.bucket_name}"
+        Resource : "arn:aws:s3:::${local.bucket_name}"
       },
       {
-        Sid: "AccessSubPaths",
-        Effect: "Allow",
-        Action: [
+        Sid : "AccessSubPaths",
+        Effect : "Allow",
+        Action : [
           "s3:DeleteObject",
           "s3:PutObject",
           "s3:GetObject",
@@ -41,7 +41,7 @@ resource "aws_iam_policy" "read_write" {
           "s3:AbortMultipartUpload",
           "s3:ListBucketMultipartUploads"
         ],
-        Resource: "arn:aws:s3:::${local.bucket_name}/*"
+        Resource : "arn:aws:s3:::${local.bucket_name}/*"
       }
     ]
   })
@@ -56,14 +56,14 @@ resource "aws_iam_role" "read_write_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action: "sts:AssumeRoleWithWebIdentity",
-        Effect: "Allow",
-        Principal: {
-          Federated: "arn:aws:iam::${var.account_id}:oidc-provider/${var.irsa_oidc_provider}"
+        Action : "sts:AssumeRoleWithWebIdentity",
+        Effect : "Allow",
+        Principal : {
+          Federated : "arn:aws:iam::${var.account_id}:oidc-provider/${var.irsa_oidc_provider}"
         },
-        Condition: {
-          StringEquals: {
-            "${var.irsa_oidc_provider}:sub": "system:serviceaccount:${var.irsa_namespace}:${var.irsa_service_account}"
+        Condition : {
+          StringEquals : {
+            "${var.irsa_oidc_provider}:sub" : "system:serviceaccount:${var.irsa_namespace}:${var.irsa_service_account}"
           }
         }
       },
@@ -83,6 +83,32 @@ resource "aws_iam_group" "developers" {
 }
 
 resource "aws_iam_group_policy_attachment" "read-write-role-policy-attachment" {
-  group       = aws_iam_group.developers.name
-  policy_arn  = aws_iam_policy.read_write.arn
+  group      = aws_iam_group.developers.name
+  policy_arn = aws_iam_policy.read_write.arn
+}
+
+resource "aws_iam_policy" "become_biorxiv_role" {
+  name = "epp-${var.env}-developers-become-access-biorxiv-xml-role"
+
+  policy = jsonencode({
+    Version : "2012-10-17",
+    Statement : [
+      {
+        Effect : "Allow",
+        Action : [
+          "sts:AssumeRole"
+        ],
+        Resource : [
+          var.biorxiv_role_arn
+        ]
+      }
+    ]
+  })
+
+  tags = local.tags
+}
+
+resource "aws_iam_group_policy_attachment" "read_become_biorxiv_role_attachment" {
+  group      = aws_iam_group.developers.name
+  policy_arn = aws_iam_policy.become_biorxiv_role.arn
 }
