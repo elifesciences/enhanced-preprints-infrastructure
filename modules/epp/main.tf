@@ -2,15 +2,19 @@ locals {
   project_name = "epp"
   bucket_name = "${var.env}-elife-epp-data"
   tags = {
-    Name        = local.bucket_name
     Project     = local.project_name
     Environment = var.env
   }
 }
 
-resource "aws_s3_bucket" "b" {
+resource "aws_s3_bucket" "main_bucket" {
   bucket  = local.bucket_name
   tags    = local.tags
+}
+
+moved {
+  from = aws_s3_bucket.b
+  to   = aws_s3_bucket.main_bucket
 }
 
 resource "aws_iam_policy" "read_write" {
@@ -22,6 +26,7 @@ resource "aws_iam_policy" "read_write" {
     Version = "2012-10-17"
     Statement = [
       {
+        Sid: "List",
         Effect: "Allow",
         Action: [
           "s3:ListBucket"
@@ -29,7 +34,7 @@ resource "aws_iam_policy" "read_write" {
         Resource: "arn:aws:s3:::${local.bucket_name}"
       },
       {
-        Sid: "List",
+        Sid: "AccessSubPaths",
         Effect: "Allow",
         Action: [
           "s3:DeleteObject",
