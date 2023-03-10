@@ -82,3 +82,12 @@ resource "aws_iam_role_policy_attachment" "read-write-role-policy-attachment" {
   role       = aws_iam_role.read_write_role.name
   policy_arn = aws_iam_policy.read_write.arn
 }
+
+resource "aws_iam_group" "developers" {
+  name = "epp-${var.env}-developers"
+}
+
+resource "aws_iam_group_policy_attachment" "read-write-role-policy-attachment" {
+  group       = aws_iam_group.developers.name
+  policy_arn  = aws_iam_policy.read_write.arn
+}
