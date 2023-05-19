@@ -51,7 +51,7 @@ resource "aws_iam_role" "read_only_role" {
 
   tags = local.tags
 }
-resource "aws_iam_role_policy_attachment" "read-write-role-policy-attachment" {
+resource "aws_iam_role_policy_attachment" "read-only-role-policy-attachment" {
   role       = aws_iam_role.read_only_role.name
   policy_arn = aws_iam_policy.read_only.arn
 }
