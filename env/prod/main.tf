@@ -1,14 +1,14 @@
 module "epp" {
-  source                          = "../../modules/epp"
+  source                            = "../../modules/epp"
 
-  account_id                      = 512686554592
-  env                             = "prod"
-  irsa_oidc_provider              = "oidc.eks.us-east-1.amazonaws.com/id/0108D0073AFB87B6669E378F0A9CFB76"
-  read_write_irsa_namespace       = "epp--prod"
-  read_write_irsa_service_account = "default"
-  read_only_irsa_namespace        = "epp--prod"
-  read_only_irsa_service_account  = "default"
-  import_irsa_namespace           = "epp--prod"
-  import_irsa_service_account     = "epp-import"
-  biorxiv_role_arn                = "arn:aws:iam::512686554592:role/access-biorxiv-xml"
+  account_id                        = 512686554592
+  env                               = "prod"
+  irsa_oidc_provider                = "oidc.eks.us-east-1.amazonaws.com/id/0108D0073AFB87B6669E378F0A9CFB76"
+  read_write_irsa_namespace         = "epp--prod"
+  read_write_irsa_service_account   = "default"
+  image_server_irsa_namespace       = "epp--prod"
+  image_server_irsa_service_account = "default"
+  import_irsa_namespace             = "epp--prod"
+  import_irsa_service_account       = "epp-import"
+  biorxiv_role_arn                  = "arn:aws:iam::512686554592:role/access-biorxiv-xml"
 }

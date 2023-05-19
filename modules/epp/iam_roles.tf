@@ -28,8 +28,8 @@ resource "aws_iam_role_policy_attachment" "read-write-role-policy-attachment" {
 }
 
 
-resource "aws_iam_role" "read_only_role" {
-  name = "epp-${var.env}-s3-read-only"
+resource "aws_iam_role" "image_server_role" {
+  name = "epp-${var.env}-image-server"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -42,7 +42,7 @@ resource "aws_iam_role" "read_only_role" {
         },
         Condition : {
           StringEquals : {
-            "${var.irsa_oidc_provider}:sub" : "system:serviceaccount:${var.read_only_irsa_namespace}:${var.read_only_irsa_service_account}"
+            "${var.irsa_oidc_provider}:sub" : "system:serviceaccount:${var.image_server_irsa_namespace}:${var.image_server_irsa_service_account}"
           }
         }
       },
@@ -51,8 +51,8 @@ resource "aws_iam_role" "read_only_role" {
 
   tags = local.tags
 }
-resource "aws_iam_role_policy_attachment" "read-only-role-policy-attachment" {
-  role       = aws_iam_role.read_only_role.name
+resource "aws_iam_role_policy_attachment" "image_server_read_only_role_policy_attachment" {
+  role       = aws_iam_role.image_server_role.name
   policy_arn = aws_iam_policy.read_only.arn
 }
 
@@ -80,7 +80,6 @@ resource "aws_iam_role" "import_role" {
 
   tags = local.tags
 }
-
 resource "aws_iam_role_policy_attachment" "import-role-s3-read-write-policy-attachment" {
   role       = aws_iam_role.import_role.name
   policy_arn = aws_iam_policy.read_write.arn

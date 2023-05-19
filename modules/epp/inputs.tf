@@ -17,10 +17,10 @@ variable "read_write_irsa_service_account" {
   type = string
 }
 
-variable "read_only_irsa_namespace" {
+variable "image_server_irsa_namespace" {
   type = string
 }
-variable "read_only_irsa_service_account" {
+variable "image_server_irsa_service_account" {
   type = string
 }
 
