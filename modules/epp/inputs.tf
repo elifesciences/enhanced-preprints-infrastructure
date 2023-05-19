@@ -5,13 +5,29 @@ variable "account_id" {
 variable "env" {
   type = string
 }
+
 variable "irsa_oidc_provider" {
   type = string
 }
-variable "irsa_namespace" {
+
+variable "read_write_irsa_namespace" {
   type = string
 }
-variable "irsa_service_account" {
+variable "read_write_irsa_service_account" {
+  type = string
+}
+
+variable "read_only_irsa_namespace" {
+  type = string
+}
+variable "read_only_irsa_service_account" {
+  type = string
+}
+
+variable "import_irsa_namespace" {
+  type = string
+}
+variable "import_irsa_service_account" {
   type = string
 }
 
