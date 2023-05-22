@@ -24,6 +24,13 @@ variable "image_server_irsa_service_account" {
   type = string
 }
 
+variable "epp_server_irsa_namespace" {
+  type = string
+}
+variable "epp_server_irsa_service_account" {
+  type = string
+}
+
 variable "import_irsa_namespace" {
   type = string
 }
