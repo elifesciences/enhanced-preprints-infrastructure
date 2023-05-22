@@ -2,8 +2,9 @@
 
 We have a few temporary buckets in play, which are dependant on one of the policies and groups in this repo.
 
-We could create separate policy and groups for these repos, but instead we'll import the config and state using the following commands:
+We could create separate policy and groups for these repos, but instead we'll import the config and state.
 
+# Migration
 ```bash
 cd env/staging
 terraform import module.epp.aws_s3_bucket.pdf_bucket staging-elife-epp-pdf
