@@ -12,7 +12,11 @@ resource "aws_iam_policy" "read_write" {
         Action : [
           "s3:ListBucket"
         ],
-        Resource : "arn:aws:s3:::${local.bucket_name}"
+        Resource : [
+          "arn:aws:s3:::${local.main_bucket_name}",
+          "arn:aws:s3:::${local.meca_bucket_name}",
+          "arn:aws:s3:::${local.pdf_bucket_name}",
+        ]
       },
       {
         Sid : "AccessSubPaths",
@@ -27,7 +31,11 @@ resource "aws_iam_policy" "read_write" {
           "s3:AbortMultipartUpload",
           "s3:ListBucketMultipartUploads"
         ],
-        Resource : "arn:aws:s3:::${local.bucket_name}/*"
+        Resource : [
+          "arn:aws:s3:::${local.main_bucket_name}/*",
+          "arn:aws:s3:::${local.meca_bucket_name}/*",
+          "arn:aws:s3:::${local.pdf_bucket_name}/*",
+        ]
       }
     ]
   })
@@ -50,7 +58,7 @@ resource "aws_iam_policy" "read_only" {
         Action : [
           "s3:ListBucket"
         ],
-        Resource : "arn:aws:s3:::${local.bucket_name}"
+        Resource : "arn:aws:s3:::${local.main_bucket_name}"
       },
       {
         Sid : "AccessSubPaths",
@@ -60,7 +68,7 @@ resource "aws_iam_policy" "read_only" {
           "s3:GetObjectAttributes",
           "s3:ListBucket",
         ],
-        Resource : "arn:aws:s3:::${local.bucket_name}/*"
+        Resource : "arn:aws:s3:::${local.main_bucket_name}/*"
       }
     ]
   })
@@ -82,7 +90,7 @@ resource "aws_iam_policy" "read_only_data_prefix" {
         Action : [
           "s3:ListBucket"
         ],
-        Resource : "arn:aws:s3:::${local.bucket_name}"
+        Resource : "arn:aws:s3:::${local.main_bucket_name}"
       },
       {
         Sid : "AccessSubPaths",
@@ -92,7 +100,7 @@ resource "aws_iam_policy" "read_only_data_prefix" {
           "s3:GetObjectAttributes",
           "s3:ListBucket",
         ],
-        Resource : "arn:aws:s3:::${local.bucket_name}/data/*"
+        Resource : "arn:aws:s3:::${local.main_bucket_name}/data/*"
       }
     ]
   })
