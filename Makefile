@@ -1,7 +1,7 @@
 validate-task = (cd env/$1/ && terraform init -backend=false && terraform validate)
 plan-task = (cd env/$1/ && terraform plan -out plan.plan)
-plan-apply-task = (plan-apply-task/$1/ &)
-apply-task = (cd env/$1/ && terraform apply plan.plan)
+plan-apply-task = (cd env/$1/ && terraform apply plan.plan)
+apply-task = (cd env/$1/ && terraform apply)
 
 
 lint:
