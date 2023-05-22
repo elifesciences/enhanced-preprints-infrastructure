@@ -8,7 +8,7 @@ on:
     tags:
       - '*'
 jobs:
-  lint:
+  lint-and-validate:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
@@ -26,12 +26,6 @@ jobs:
         run: make lint
         env:
           GITHUB_TOKEN: ${{ github.token }}
-
-  validate:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v3
-      - uses: hashicorp/setup-terraform@v2
 
       - name: Run validate
         run: make validate
