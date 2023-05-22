@@ -2,7 +2,7 @@
 
 We have a few temporary buckets in play, which are dependant on one of the policies and groups in this repo.
 
-To ease integration, we'll import the values into state using the following commands:
+We could create separate policy and groups for these repos, but instead we'll import the config and state using the following commands:
 
 ```bash
 cd env/staging
