@@ -10,13 +10,6 @@ variable "irsa_oidc_provider" {
   type = string
 }
 
-variable "read_write_irsa_namespace" {
-  type = string
-}
-variable "read_write_irsa_service_account" {
-  type = string
-}
-
 variable "image_server_irsa_namespace" {
   type = string
 }
