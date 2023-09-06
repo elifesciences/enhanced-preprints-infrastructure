@@ -34,3 +34,8 @@ variable "import_irsa_service_account" {
 variable "biorxiv_role_arn" {
   type = string
 }
+
+variable "production_team_group_name" {
+  type = string
+  description = "This group name is given read-write access to the source buckets for MECAs and PDFs"
+}

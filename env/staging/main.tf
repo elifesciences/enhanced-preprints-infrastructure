@@ -11,4 +11,5 @@ module "epp" {
   import_irsa_namespace             = "epp--staging"
   import_irsa_service_account       = "epp-import"
   biorxiv_role_arn                  = "arn:aws:iam::512686554592:role/access-biorxiv-xml"
+  production_team_group_name        = "elife-production"
 }

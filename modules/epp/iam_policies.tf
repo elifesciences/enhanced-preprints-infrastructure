@@ -155,3 +155,46 @@ resource "aws_iam_policy" "become_biorxiv_role" {
 
   tags = local.tags
 }
+
+resource "aws_iam_policy" "read_write_sources" {
+  name        = "epp-${var.env}-s3-read-write-sources"
+  path        = "/"
+  description = "EPP ${var.env} S3 bucket read/write access to meca and PDF bucket"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid : "List",
+        Effect : "Allow",
+        Action : [
+          "s3:ListBucket"
+        ],
+        Resource : [
+          "arn:aws:s3:::${local.meca_bucket_name}",
+          "arn:aws:s3:::${local.pdf_bucket_name}",
+        ]
+      },
+      {
+        Sid : "AccessSubPaths",
+        Effect : "Allow",
+        Action : [
+          "s3:DeleteObject",
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:GetObjectAttributes",
+          "s3:ListMultipartUploadParts",
+          "s3:ListBucket",
+          "s3:AbortMultipartUpload",
+          "s3:ListBucketMultipartUploads"
+        ],
+        Resource : [
+          "arn:aws:s3:::${local.meca_bucket_name}/*",
+          "arn:aws:s3:::${local.pdf_bucket_name}/*",
+        ]
+      }
+    ]
+  })
+
+  tags = local.tags
+}
