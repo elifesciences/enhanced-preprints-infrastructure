@@ -7,6 +7,9 @@ locals {
     Project     = local.project_name
     Environment = var.env
   }
+
+  prod_meca_bucket_name  = "prod-elife-epp-meca"
+  prod_pdf_bucket_name  = "prod-elife-epp-pdf"
 }
 
 resource "aws_s3_bucket" "main_bucket" {

@@ -86,3 +86,7 @@ resource "aws_iam_role_policy_attachment" "import-role-biorxiv-access-policy-att
   role       = aws_iam_role.import_role.name
   policy_arn = aws_iam_policy.read_biorxiv_bucket.arn
 }
+resource "aws_iam_role_policy_attachment" "import-role-access-to-prod-sources-policy-attachment" {
+  role       = aws_iam_role.import_role.name
+  policy_arn = aws_iam_policy.read_prod_sources.arn
+}
