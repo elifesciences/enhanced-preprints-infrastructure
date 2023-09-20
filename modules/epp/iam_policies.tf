@@ -43,6 +43,44 @@ resource "aws_iam_policy" "read_write" {
   tags = local.tags
 }
 
+resource "aws_iam_policy" "read_prod_sources" {
+  name        = "epp-${var.env}-s3-read-prod-sources"
+  path        = "/"
+  description = "EPP ${var.env} S3 bucket read-only access to the prod env source buckets"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid : "List",
+        Effect : "Allow",
+        Action : [
+          "s3:ListBucket"
+        ],
+        Resource : [
+          "arn:aws:s3:::${local.prod_meca_bucket_name}",
+          "arn:aws:s3:::${local.prod_pdf_bucket_name}",
+        ]
+      },
+      {
+        Sid : "AccessSubPaths",
+        Effect : "Allow",
+        Action : [
+          "s3:GetObject",
+          "s3:GetObjectAttributes",
+          "s3:ListBucket",
+        ],
+        Resource : [
+          "arn:aws:s3:::${local.prod_meca_bucket_name}/*",
+          "arn:aws:s3:::${local.prod_pdf_bucket_name}/*",
+        ]
+      }
+    ]
+  })
+
+  tags = local.tags
+}
+
 
 resource "aws_iam_policy" "read_only" {
   name        = "epp-${var.env}-s3-read-only"
