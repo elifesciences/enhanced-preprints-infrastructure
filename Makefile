@@ -33,3 +33,13 @@ prod-plan-apply:
 
 prod-apply:
 	$(call apply-task,prod)
+
+
+migration-test-validate:
+	$(call validate-task,migration-test)
+migration-test-plan:
+	$(call plan-task,migration-test)
+migration-test-plan-apply:
+	$(call plan-apply-task,migration-test)
+migration-test-apply:
+	$(call apply-task,migration-test)
