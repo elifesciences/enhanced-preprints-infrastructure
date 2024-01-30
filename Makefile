@@ -33,3 +33,16 @@ prod-plan-apply:
 
 prod-apply:
 	$(call apply-task,prod)
+	$(call validate-task,prod)
+
+biophysics-colab-validate:
+	$(call validate-task,biophysics-colab)
+
+biophysics-colab-plan:
+	$(call plan-task,biophysics-colab)
+
+biophysics-colab-plan-apply:
+	$(call plan-apply-task,biophysics-colab)
+
+biophysics-colab-apply:
+	$(call apply-task,biophysics-colab)
