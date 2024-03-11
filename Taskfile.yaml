@@ -16,7 +16,6 @@ tasks:
     label: "lint {{index .MATCH 0}}"
     vars:
       TERRAFORM_ENV_DIR: 'env/{{index .MATCH 0}}'
-    deps: ["{{index .MATCH 0}}-init"]
     cmds:
     - cmd: terraform -chdir={{.TERRAFORM_ENV_DIR}} init -backend=false
     - cmd: terraform -chdir={{.TERRAFORM_ENV_DIR}} validate
