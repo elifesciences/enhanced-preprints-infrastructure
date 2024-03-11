@@ -28,7 +28,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-      - uses: hashicorp/setup-terraform@v2
+
+      - name: Install asdf & tools
+        uses: asdf-vm/actions/install@v3
 
       - name: Run validate
         run: task validate
