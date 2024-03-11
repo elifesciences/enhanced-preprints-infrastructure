@@ -17,15 +17,12 @@ jobs:
         with:
           path: ~/.tflint.d/plugins
           key: tflint-${{ hashFiles('.tflint.hcl') }}
-      - uses: terraform-linters/setup-tflint@v3
-        name: Setup TFLint
-        with:
-          tflint_version: latest
+
+      - name: Install asdf & tools
+        uses: asdf-vm/actions/install@v3
 
       - name: Run lint
-        run: make lint
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+        run: task lint
 
   validate:
     runs-on: ubuntu-22.04
@@ -34,4 +31,4 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
 
       - name: Run validate
-        run: make validate
+        run: task validate

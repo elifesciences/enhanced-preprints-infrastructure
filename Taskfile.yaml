@@ -1,0 +1,65 @@
+version: '3'
+
+tasks:
+  "*-init":
+    label: "init {{index .MATCH 0}}"
+    vars:
+      TERRAFORM_ENV_DIR: 'env/{{index .MATCH 0}}'
+    sources:
+    - "{{.TERRAFORM_ENV_DIR}}/*.tf"
+    generates:
+    - "{{.TERRAFORM_ENV_DIR}}/.terraform/**"
+    - "{{.TERRAFORM_ENV_DIR}}/.terraform.lock.hcl"
+    cmds:
+    - cmd: terraform -chdir={{.TERRAFORM_ENV_DIR}} init
+  "*-validate":
+    label: "lint {{index .MATCH 0}}"
+    vars:
+      TERRAFORM_ENV_DIR: 'env/{{index .MATCH 0}}'
+    deps: ["{{index .MATCH 0}}-init"]
+    cmds:
+    - cmd: terraform -chdir={{.TERRAFORM_ENV_DIR}} validate
+  "*-plan":
+    label: "plan {{index .MATCH 0}}"
+    vars:
+      TERRAFORM_ENV_DIR: 'env/{{index .MATCH 0}}'
+    deps: ["{{index .MATCH 0}}-init"]
+    sources:
+    - "{{.TERRAFORM_ENV_DIR}}/**.tf"
+    - "{{.TERRAFORM_ENV_DIR}}/.terraform"
+    - "{{.TERRAFORM_ENV_DIR}}/.terraform.lock.hcl"
+    - "modules/**/*"
+    generates:
+    - "{{.TERRAFORM_ENV_DIR}}/plan.plan"
+    cmds:
+    - cmd: terraform -chdir={{.TERRAFORM_ENV_DIR}} plan -out plan.plan
+  "*-plan-apply":
+    label: "plan apply {{index .MATCH 0}}"
+    vars:
+      TERRAFORM_ENV_DIR: 'env/{{index .MATCH 0}}'
+    sources:
+    - "{{.TERRAFORM_ENV_DIR}}/plan.plan"
+    prompt: Are you sure you want to apply all the changes in the plan?
+    preconditions:
+    - sh: ls {{.TERRAFORM_ENV_DIR}}/plan.plan 2> /dev/null
+      msg: "No plan found for {{index .MATCH 0}}"
+    cmds:
+    - cmd: terraform -chdir={{.TERRAFORM_ENV_DIR}} apply plan.plan
+  "*-clean":
+    label: "clean {{index .MATCH 0}}"
+    vars:
+      TERRAFORM_ENV_DIR: 'env/{{index .MATCH 0}}'
+    prompt: Are you sure you want to clean the plan?
+    cmds:
+    - cmd: rm {{.TERRAFORM_ENV_DIR}}/plan.plan 2> /dev/null
+      ignore_error: true
+  lint:
+    label: "lint all envs"
+    cmds:
+    - cmd: tflint --init
+    - cmd: tflint --recursive --minimum-failure-severity=error
+  validate:
+    label: "validate all envs"
+    cmds:
+    - task: staging-validate
+    - task: prod-validate

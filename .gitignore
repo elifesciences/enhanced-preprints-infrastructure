@@ -3,3 +3,4 @@
 
 # ignore plan files
 **/plan.plan
+.task
