@@ -2,46 +2,46 @@
 
 This repository contains all the code for defining EPP's external infrastructure on AWS
 
-# Infrastructure
+## Infrastructure
 
 - S3 Bucket
 - policy granting access read/write to S3 Bucket
 - Role with read/write policy applied and granted to EKS cluster service account via IRSA
 
-# Run linting and validators
+## Prerequisites
 
-- install `make`, `tflint` and `terraform`
-- run `make lint`
-- run `make validate`
+This repo uses:
+- terraform
+- tflint
+- task
 
-# Preview changes
+You can get the correct versions by installing [asdf](https://asdf-vm.com/) and running `asdf install`. See `.tool-versions`.
+
+## Tasks
+
+### Preview changes
 
 Use `terraform plan` within an environment, or use the helpful makefile tasks:
 
 ```bash
-make staging-plan
-make prod-plan
+task staging-plan
+task prod-plan
 ```
 
-# Applying changes
+### Applying changes
 
-The easiest way to check and apply changes is using the makefile:
+The easiest way to check and apply changes is using the taskfile:
 
 ```bash
-make staging-plan
-make staging-plan-apply
+task staging-plan
+task staging-plan-apply
 ```
 against staging, then
 
 ```bash
-make prod-plan
-make prod-plan-apply
+task prod-plan
+task prod-plan-apply
 ```
 for prod.
 
 The exact output shown in the plan phase is what is applied (via a plan.plan output file). Alternative, you can just apply all outstanding changes using:
-
-```bash
-make staging-apply
-make prod-apply
-```
