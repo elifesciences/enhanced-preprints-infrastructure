@@ -164,7 +164,11 @@ resource "aws_iam_policy" "read_biorxiv_bucket" {
             ],
             "Resource": [
                 "arn:aws:s3:::transfers-elife",
-                "arn:aws:s3:::transfers-elife/*"
+                "arn:aws:s3:::transfers-elife/*",
+                "arn:aws:s3:::medrxiv-src-daily",
+                "arn:aws:s3:::medrxiv-src-daily/*",
+                "arn:aws:s3:::biorxiv-src-daily",
+                "arn:aws:s3:::biorxiv-src-daily/*",
             ]
         }
     ]
