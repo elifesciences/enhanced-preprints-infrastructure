@@ -8,7 +8,7 @@ module "epp" {
   image_server_irsa_service_account = "epp-image-server"
   epp_server_irsa_namespace         = "epp--biophysics-colab"
   epp_server_irsa_service_account   = "epp-server"
-  import_irsa_namespace             = "epp--prod"
+  import_irsa_namespace             = "epp--biophysics-colab"
   import_irsa_service_account       = "epp-import"
   biorxiv_role_arn                  = "arn:aws:iam::512686554592:role/access-biorxiv-xml"
   production_team_group_name        = "elife-production"
