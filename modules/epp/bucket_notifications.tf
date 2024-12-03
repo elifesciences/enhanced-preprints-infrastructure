@@ -33,7 +33,5 @@ resource "aws_s3_bucket_notification" "meca_bucket_notification" {
   topic {
     topic_arn     = aws_sns_topic.meca_bucket_notification_topic.arn
     events        = ["s3:ObjectCreated:*"]
-    # filter_prefix = "silent-corrections/"
-    # filter_suffix = ".meca"
   }
 }
