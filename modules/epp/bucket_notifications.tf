@@ -1,7 +1,7 @@
 locals {
   meca_sns_name  = "${var.env}-elife-${local.project_name}-meca-created"
 }
-# Allow silent-corrections notifications from the MECA bucket to SNS
+# Allow notifications from the MECA bucket to SNS
 # (SNS subscriptions are managed downstream as part of the listening resource)
 data "aws_iam_policy_document" "topic" {
   statement {
