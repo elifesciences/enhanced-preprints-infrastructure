@@ -53,6 +53,10 @@ resource "aws_iam_role_policy_attachment" "epp_server_read_only_role_policy_atta
   role       = aws_iam_role.epp_server_role.name
   policy_arn = aws_iam_policy.read_only_data_prefix.arn
 }
+resource "aws_iam_role_policy_attachment" "epp_server_read_only_automation_role_policy_attachment" {
+  role       = aws_iam_role.epp_server_role.name
+  policy_arn = aws_iam_policy.read_only_automation_prefix.arn
+}
 
 
 resource "aws_iam_role" "import_role" {

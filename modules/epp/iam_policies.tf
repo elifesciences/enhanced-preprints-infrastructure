@@ -146,6 +146,38 @@ resource "aws_iam_policy" "read_only_data_prefix" {
   tags = local.tags
 }
 
+resource "aws_iam_policy" "read_only_automation_prefix" {
+  name        = "epp-${var.env}-s3-read-only-automation-prefix"
+  path        = "/"
+  description = "EPP ${var.env} S3 bucket read-only access to /automation"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid : "List",
+        Effect : "Allow",
+        Action : [
+          "s3:ListBucket"
+        ],
+        Resource : "arn:aws:s3:::${local.main_bucket_name}"
+      },
+      {
+        Sid : "AccessSubPaths",
+        Effect : "Allow",
+        Action : [
+          "s3:GetObject",
+          "s3:GetObjectAttributes",
+          "s3:ListBucket",
+        ],
+        Resource : "arn:aws:s3:::${local.main_bucket_name}/automation/*"
+      }
+    ]
+  })
+
+  tags = local.tags
+}
+
 resource "aws_iam_policy" "read_biorxiv_bucket" {
   name        = "epp-${var.env}-read-biorxiv-bucket"
   path        = "/"
