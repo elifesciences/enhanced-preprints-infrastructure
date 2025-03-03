@@ -15,7 +15,17 @@ This repo uses:
 - tflint
 - task
 
-You can get the correct versions by installing [asdf](https://asdf-vm.com/) and running `asdf install`. See `.tool-versions`.
+You can get the correct versions by installing [mise](https://mise.jdx.dev/) and running `mise install`. See `.tool-versions`.
+
+## Workflow
+
+- Create a branch for your changes
+- Make your changes
+- Run the lint task to check your changes
+- Run the fmt task to format your changes
+- Push your changes to the branch
+- Open a pull request
+- if the digger plan looks right, comment "digger apply"
 
 ## Tasks
 
