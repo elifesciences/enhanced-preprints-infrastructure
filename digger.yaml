@@ -1,0 +1,8 @@
+projects:
+- name: EPP (prod)
+  dir: env/prod
+- name: EPP (staging)
+  dir: env/staging
+- name: EPP (biophysics-colab)
+  dir: env/biophysics-colab
+auto_merge: true
