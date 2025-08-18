@@ -31,7 +31,7 @@ jobs:
           run: echo "Nothing"
           post: mise implode -y
       - name: Install tools
-        uses: jdx/mise-action@v2
+        uses: jdx/mise-action@v3
       - name: ${{ fromJSON(github.event.inputs.spec).job_id }}
         run: echo "job id ${{ fromJSON(github.event.inputs.spec).job_id }}"
       - uses: diggerhq/digger@vLatest
