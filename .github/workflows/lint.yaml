@@ -27,7 +27,7 @@ jobs:
           run: echo "Nothing"
           post: mise implode -y
       - name: Install tools
-        uses: jdx/mise-action@v2
+        uses: jdx/mise-action@v3
 
       - name: Run lint
         run: task lint
@@ -46,7 +46,7 @@ jobs:
           run: echo "Nothing"
           post: mise implode -y
       - name: Install tools
-        uses: jdx/mise-action@v2
+        uses: jdx/mise-action@v3
 
       - name: Run validate
         run: task validate
