@@ -17,6 +17,3 @@ variable "temporal_irsa_service_account" {
   type = string
 }
 
-variable "biorxiv_role_arn" {
-  type = string
-}

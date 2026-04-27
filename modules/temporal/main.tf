@@ -51,7 +51,7 @@ resource "aws_iam_policy" "read_write" {
           "s3:ListBucket"
         ],
         Resource : [
-          "${aws_s3_bucket.main_bucket.arn}",
+          aws_s3_bucket.main_bucket.arn,
         ]
       },
       {
