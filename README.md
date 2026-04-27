@@ -21,8 +21,8 @@ You can get the correct versions by installing [mise](https://mise.jdx.dev/) and
 
 - Create a branch for your changes
 - Make your changes
-- Run the lint task to check your changes
-- Run the fmt task to format your changes
+- Run the `lint` task to check your changes
+- Run the `validate` task to format your changes
 - Push your changes to the branch
 - Open a pull request
 - if the digger plan looks right, comment "digger apply"
@@ -54,4 +54,4 @@ task prod-plan-apply
 ```
 for prod.
 
-The exact output shown in the plan phase is what is applied (via a plan.plan output file). Alternative, you can just apply all outstanding changes using:
+
