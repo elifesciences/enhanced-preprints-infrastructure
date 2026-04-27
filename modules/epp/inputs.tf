@@ -39,3 +39,8 @@ variable "production_team_group_name" {
   type = string
   description = "This group name is given read-write access to the source buckets for MECAs and PDFs"
 }
+
+variable "foo" {
+  type = string
+  description = "a test to see if digger works with actions/checkout v6"
+}
